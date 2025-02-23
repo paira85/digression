@@ -1,5 +1,5 @@
 # 기본 이미지로 Python 3.9을 사용
-FROM python:3.9
+FROM python:3.8.20
 
 # 작업 디렉토리 설정
 WORKDIR /app
