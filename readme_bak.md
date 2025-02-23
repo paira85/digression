@@ -38,3 +38,10 @@ Flask: 백엔드에서 번역 API를 호출하여 결과 반환
 Node.js (React Native 실행용)
 
 npm install -g react-native-cli
+
+# Render
+paira85@naver.com
+tlqkftorl1!@
+KEY=71674198ba027a4043f50594b64592dd
+
+https://momotranslate.com/
