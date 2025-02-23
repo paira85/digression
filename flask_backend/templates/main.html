@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" class="ui-mobile">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 로컬에 저장된 jQuery 파일 가져오기 -->
+    <!-- <script src="static/js/jquery/jquery-3.7.1.min.js"></script> -->
+    <script src="static/js/jquery/jquery.js"></script>
+    <!-- <script src="static/js/jquery/mobile/jquery.mobile-1.4.5.js"></script> -->
+     
+    <script src="static/js/jquery/jqm/index.js"></script>
+    <script src="static/js/jquery/mobile/jquery.mobile-1.4.5.min.js"></script>
+    <script src="static/js/jquery/common.js"></script>
+
+     <!-- 모바일 달력 -->
+     <!-- <script src="static/js/jquery/mobiscroll/mobiscroll.jquery.min.js"></script> -->
+
+    <!-- 모바일 달력 -->
+    <!-- <link href="static/css/mobiscroll/mobiscroll.jquery.min.css" rel="stylesheet" /> -->
+    
+    <!-- <script src="{{ url_for('static', filename='js/jquery/jquery-3.7.1.min.js') }}"></script> -->
+    
+
+    <!-- <link href="static/css/jquery/jquery-ui.min.css" rel="stylesheet"> -->
+    <!-- <link href="static/css/rangepicker/jquery.comiseo.daterangepicker.css" rel="stylesheet"> -->
+    <link href="static/css/mobile/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+    <link href="static/css/rangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="static/css/fullcalendar/fullcalendar.min.css" rel="stylesheet">
+    <link href="static/css/jqm/jqm-demos.css" rel="stylesheet">
+    
+    <link href="static/css/common.css" rel="stylesheet">
+    
+    <!-- <script src="jquery.min.js"></script> -->
+    <!-- <script src="static/js/jquery/jquery-ui.min.js"></script> -->
+    <script src="static/js/jquery/moment.min.js"></script>
+    <!-- <script src="static/js/jquery/rangepicker/jquery.comiseo.daterangepicker.js"></script> -->
+    
+    <script src="static/js/jquery/rangepicker/daterangepicker.js"></script>
+    <script src="static/js/jquery/fullcalendar/index.global.js"></script>
+    <title>Translation Page</title>
+    
+</head>
+<!-- <body onload="loadPage()"> -->
+<body class="ui-mobile-viewport ui-overlay-a" id="ui-page-top">
+    <div data-role="page" class="jqm-demos ui-page ui-page-theme-a ui-page-footer-fixed ui-page-active" data-quicklinks="true" data-url="/" tabindex="1" style="padding-bottom: 63px;">
+        <div data-role="header">
+            <div data-role="navbar" data-iconpos="top" class="content-container">
+                <ul class="menu">
+                    <li>
+                        <a data-icon="home"  href="/" class="ui-btn-active" >Home</a></li>
+                    <li>
+                        <a href="#services">Translater</a>
+                        <ul class="submenu">
+                            <li><a href="/translater" class="cls_menu">Translater</a></li>
+                            <li><a href="/wordupload" class="cls_menu">Doc</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#about">Travel</a>
+                        <ul class="submenu">
+                            <li><a href="/settlement">calculate</a></li>
+                            <li><a href="/raveldiary">Diary</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+<!--             
+                <ul class="cls_main">
+                    <li id="Translater" class="cls_hide">
+                        Translater
+                    </li>
+                    <li id="FileUpload" class="cls_hide">
+                        FileUpload
+                    </li>
+                </ul> -->
+
+            </div>
+        </div>
+
+        <div role="main" class="ui-content jqm-content input-group " >
+            
+            <h2 id="h2_reg" class="custom-title ">여행지 입력</h2>
+            <table data-role="table" data-mode="reflow" class="ui-responsive table-stroke  ui-table ui-table-reflow">
+                <thead>
+                    <th><b class="ui-table-cell-label"></b></th>
+                    <th><b class="ui-table-cell-label"></b></th> 
+                </thead>
+                <tbody>
+                    <tr>
+                        <th data-priority="1" data-colstart="1">여행나라</th>
+                        <td>                           
+                            <input type="text" id="country" name="country" placeholder="나라">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th data-priority="2" data-colstart="2">여행일자</th>
+                        <td>      
+                            <input id="start-picker" name="travelYmd" mbsc-input placeholder="Please start select." />
+                            <input id="end-picker"   name="travelYmd" mbsc-input placeholder="Please end select." />
+                        
+                                <!-- <div class="mbsc-form-group">
+                                    <div class="mbsc-row">
+                                        <div class="mbsc-col-12 mbsc-txt-muted md-mobile-picker-header">Disable <code>onClick/onFocus</code> and only show on button</div>
+                                        <div class="mbsc-col-8">
+                                            <input id="mobile-picker-button" class="md-mobile-picker-input" />
+                                        </div>
+                                        <div class="mbsc-col-4 mbsc-col-no-padding">
+                                            <button mbsc-button data-variant="outline" data-color="primary" id="show-mobile-date-picker" class="md-mobile-picker-button">Show picker</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mbsc-form-group">
+                                    <div class="mbsc-row">
+                                        <div class="mbsc-col-12">
+                                            <div class="mbsc-txt-muted md-mobile-picker-header">Use the picker with a Mobiscroll input</div>
+                                            <label class="md-mobile-picker-box-label">
+                                            <input id="mobile-picker-mobiscroll" mbsc-input data-label-style="stacked" data-input-style="box" placeholder="Please Select..." />
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mbsc-txt-muted md-mobile-picker-header">Use the picker inline in any page</div> -->
+                            </div>
+                            <div class="md-mobile-picker-inline">
+                                <div id="mobile-picker-inline"></div>
+                            </div>                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button onclick="saveTravel()">저장</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>       
+
+            <h2 id="h2_list" class="custom-title ">여행지 목록</h2>
+            <table id="show_datas" data-role="table" data-mode="reflow" class="ui-responsive table-stroke ui-table ui-table-reflow">
+                <thead>
+                    <tr>
+                        <th data-priority="1" data-colstart="1">Rank</th>
+                        <th>여행나라</th>
+                        <th class="ui-table-cell-label">여행일자</th>
+                    </tr>
+                </thead>
+                <tbody id="show_bodys">
+                    <tr class="show_tr" style="display:none">
+                        <td><b class="ui-table-cell-label">Rank</b></td>
+                        <td><b class="ui-table-cell-label">여행나라</b></td>
+                        <td><b class="ui-table-cell-label">여행일자</b></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="h2_calendar" class="custom-title ">여행 스케줄</h2>
+            <div id="calendar"></div>
+        </div>
+        <div  id="footer-container">
+            <div  data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" id="chat" data-icon="custom" data-theme="b">Chat</a></li>
+                        <li><a href="#" id="email" data-icon="custom" data-theme="b">Email</a></li>
+                    </ul>
+                </div>
+                <h4>Page Footer</h4>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // mobiscroll.setOptions({
+        //     theme: 'ios',
+        //     themeVariant: 'light'
+        // });
+
+        storeName = "travelInfo"; // 객체 저장소 이      
+
+
+        $(document).ready(function () {
+
+            console.log("jQuery is successfully loaded from local file!");                
+            $(".cls_menu").on("click",function(){
+
+                $(".cls_main").find("li").hide()
+                
+                $($(this).attr("href")).show()
+            })
+
+            //입력폼 달력 초기화
+            loadMobiscroll()           
+            //전체 달력
+            loadFullCalendar()
+            //DB 초기화
+            createDataBaseStore(storeName);
+            loadTravel()
+            // openDB = () => {
+            //     return new Promise((resolve, reject) => {
+            //         const request = indexedDB.open(dbName,dbVersion);
+
+            //         request.onupgradeneeded = (event) => {
+            //             const db = event.target.result;
+            //             // 객체 저장소 생성 (이미 존재하지 않으면)
+            //             if (!db.objectStoreNames.contains(storeName)) {
+            //                 db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
+            //             }
+            //         };
+
+            //         request.onsuccess = (event) => {
+            //             resolve(event.target.result); // 데이터베이스 연결 성공
+            //         };
+
+            //         request.onerror = (event) => {
+            //             reject("Error opening DB: " + event.target.errorCode);
+            //         };
+            //     });
+            // };
+        });
+
+        const saveTravel = () => {
+                
+            // ES6
+            const country = document.getElementById('country');
+            // ES6
+            const start_picker = document.getElementById('start-picker');
+            const end_picker = document.getElementById('end-picker');
+            
+
+            let countryValue = country.value || "";
+            let start_value = start_picker.value || "";
+            let end_value = end_picker.value || "";
+            
+            if(!countryValue || !start_value){
+                alert("나라, 일자 정보를 입력해주세요.");
+                return false
+            }
+                        
+            let datas = {
+                country : countryValue,                
+                start : start_value,
+                end : end_value
+            }
+            insertDataBaseStore(storeName , datas)
+            loadTravel()
+        }
+
+        function loadTravel (){
+            
+            openDB().then((db) => {
+                const transaction = db.transaction([storeName], "readonly");
+                const store = transaction.objectStore(storeName);
+
+                const request = store.getAll(); // 저장된 모든 데이터 가져오기
+
+                request.onsuccess = (event) => {
+                    const data = event.target.result;
+                    console.log('data.length ' , data.length)
+                    if (data.length > 0) {
+                        let eventData = []
+                        $("#show_bodys tr:not(:first)").remove();
+                        calendar.removeAllEvents();
+
+                        data.forEach((item,index) => {
+                            
+                            let cloneNode = $(".show_tr:first").clone()
+                            $(cloneNode).show()
+                            $(cloneNode).find("td:eq(0)").append(index +1)
+                            $(cloneNode).find("td:eq(1)").append(item.country)
+                            $(cloneNode).find("td:eq(2)").append(item.start + " ~ " + item.end)                            
+                            $("#show_bodys").append($(cloneNode))
+
+                            calendar.addEvent({ title: item.country, start: item.start, end: item.end});
+
+                        }); 
+                        // calendar.addEventSource(eventData); 
+                        // calendar.render();
+                        
+                    } else {
+                        $('#output').html("저장된 데이터가 없습니다.");
+                    }
+                };
+
+                request.onerror = (event) => {
+                    alert("데이터 불러오기 실패: " + event.target.error);
+                };                
+            });
+        }
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 로컬에 저장된 jQuery 파일 가져오기 -->
+    <script src="static/js/jquery/jquery-3.7.1.min.js"></script>  
+    <script src="static/js/jquery/common.js"></script>
+    <!-- <script src="{{ url_for('static', filename='js/jquery/jquery-3.7.1.min.js') }}"></script> -->
+    <script>
+        async function submitTranslation() {
+            const inputText = document.getElementById('input-text').value;
+            const response = await fetch('/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ text: inputText })
+            });
+            const result = await response.json();
+            document.getElementById('output-text').innerText = result.translated_text;
+        }
+
+        $(document).ready(function () {
+            console.log("jQuery is successfully loaded from local file!");
+
+                
+            $(".cls_menu").on("click",function(){
+
+                $(".cls_main").find("li").hide()
+                
+                $($(this).attr("href")).show()
+            })
+        });
+    </script>
+    <title>Translation Page</title>
+    
+</head>
+
+<body onload="loadPage()">
+    <div id="content-container"></div>
+
+    <h1>Text Translation</h1>
+    <form id="translate-form">
+        <textarea id="input-text" placeholder="Enter text to translate..."></textarea>
+        <button type="button" onclick="submitTranslation()">Translate</button>
+    </form>
+    <h2>Translation Result:</h2>
+    <p id="output-text" style="white-space: pre-wrap;"></p>
+
+</body>
+</html>

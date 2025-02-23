@@ -1,0 +1,187 @@
+/* 
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    font-size: 11px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    text-align: left;
+    padding: 10px;
+} */
+
+.line-40 {
+    height: 40px;
+}
+
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+.wrap-text {
+    width: 300px; /* 줄바꿈을 유도하기 위해 컨테이너 너비 설정 */
+    border: 1px solid #ddd;
+    padding: 10px;
+    word-wrap: break-word; /* 긴 단어를 줄바꿈 */
+    word-break: break-all; /* 단어 중간에서도 줄바꿈 */
+}
+
+/* 탭 메뉴 스타일 */
+/*
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.tabs li {
+    margin: 0;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.tabs li.active {
+    background-color: #fff;
+    font-weight: bold;
+    border-top: 2px solid #007BFF;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+}
+
+.tabs li:hover {
+    background-color: #eee;
+}
+
+/* 탭 콘텐츠 스타일 */
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 컨테이너 설정 (버튼 우측 정렬) */
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 우측 정렬 */
+    padding: 10px; 
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #007bff; /* 파란색 */
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+    /* 제목 스타일 */
+.title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    min-height: 30px;
+    margin-top: 50px;
+    border-bottom: 1px solid;
+}*/
+
+.nav-glyphish-example .ui-btn { padding-top: 40px !important; }
+.nav-glyphish-example .ui-btn:after { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+#chat:after { background:  url("../images/glyphish-icons/09-chat2.png") 50% 50% no-repeat; background-size: 24px 22px; }
+#email:after { background:  url("../images/glyphish-icons/18-envelope.png") 50% 50% no-repeat; background-size: 24px 16px;  }
+#login:after { background:  url("../images/glyphish-icons/30-key.png") 50% 50% no-repeat;  background-size: 12px 26px; }
+#beer:after { background:  url("../images/glyphish-icons/88-beermug.png") 50% 50% no-repeat;  background-size: 22px 27px; }
+#coffee:after { background:  url("../images/glyphish-icons/100-coffee.png") 50% 50% no-repeat;  background-size: 20px 24px; }
+#skull:after { background:  url("../images/glyphish-icons/21-skull.png") 50% 50% no-repeat;  background-size: 22px 24px; }
+
+#calendar a {
+    color: black;
+    font-weight: unset;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+#calendar .fc-event-title{
+    font-size: 14px;
+    text-shadow: none;
+}
+
+ /* 타이틀 스타일 */
+.custom-title {
+    /*background: linear-gradient(135deg, #ff7eb3, #ff758c);*/
+    background: #555151 !important;
+    color: white !important;
+    text-align: center;
+    font-size: 24px;
+    padding: 10px 5px;
+    padding-bottom: none;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* h2 스타일 */
+.custom-h2 {
+    text-align: center;
+    font-size: 22px;
+    color: #ff758c;
+    margin-top: 20px;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 3px solid #ff758c;
+    /* display: inline-block; */
+    border-radius: 5px;
+}
+
+button{
+    background-color: #ddd;
+}
+
+.th-label{
+    background-color: #ddd;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+
+.text-center{
+    text-align:center  !important;
+}
+
+.text-left{
+    text-align:left  !important;
+}
+
+.text-right{
+    text-align:right  !important;
+}
+
+.border-right{
+    border-right:1px solid #ddd
+}
