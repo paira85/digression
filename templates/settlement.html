@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" class="ui-mobile">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <script src="static/js/jquery/jquery.js"></script>
+     
+    <script src="static/js/jquery/jqm/index.js"></script>
+    <script src="static/js/jquery/mobile/jquery.mobile-1.4.5.min.js"></script>
+    <script src="static/js/jquery/common.js"></script>
+    <link href="static/css/mobile/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+    <link href="static/css/rangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="static/css/fullcalendar/fullcalendar.min.css" rel="stylesheet">
+    <link href="static/css/jqm/jqm-demos.css" rel="stylesheet">
+    <link href="static/css/common.css" rel="stylesheet">
+    
+    <script src="static/js/jquery/moment.min.js"></script>
+    
+    <script src="static/js/jquery/rangepicker/daterangepicker.js"></script>
+    <script src="static/js/jquery/fullcalendar/index.global.js"></script>
+    <title>@momo_seungmo</title>
+</head>
+<body  class="ui-mobile-viewport ui-overlay-a" id="ui-page-top">    
+    <div data-role="page" class="jqm-demos ui-page ui-page-theme-a ui-page-footer-fixed ui-page-active" data-quicklinks="true" tabindex="1" style="padding-bottom: 63px;">
+        <div data-role="header">
+            <div class="content-container" data-role="navbar" data-iconpos="top">
+                <ul class="menu">
+                    <li>
+                        <a data-icon="home"  href="/"  style="height: 28px;">Home</a></li>
+                    <li>
+                        <a href="#services">Translater</a>
+                        <ul class="submenu">
+                            <li><a href="/translater" class="cls_menu">Translater</a></li>
+                            <li><a href="/wordupload" class="cls_menu">Doc</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#about">Travel</a>
+                        <ul class="submenu">
+                            <li><a href="/settlement" class="ui-btn-active">calculate</a></li>
+                            <li><a href="/raveldiary">Diary</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div role="main" class="ui-content jqm-content input-group " >            
+            
+            <div data-role="tabs" id="tabs" class="tabs">
+                <div data-role="navbar">
+                    <ul >
+                        <li >
+                            <a href="#tab1" data-tab="tab1" name="result" href="#tab1" data-ajax="false" class="ui-tabs-active ui-link ui-btn ui-tabs-anchor ui-btn-active"  >정산(settlement)</a>
+                        </li>
+                        <li>                        
+                            <a href="#tab2" data-tab="tab2" href="#tab2" name="history" data-ajax="false">이력</a>
+                        </li>
+                    </ul>
+                </div>            
+
+                <div id="tab1" class="tab-content active jqm-content">
+                    <!-- <div class="button-container" style="float: right;"> -->
+                        <!-- <button onclick="cacl_clear()" class="styled-button" >새로고침</button> -->
+                    <!-- </div> -->
+
+                    <h2 id="h2_person" class="custom-title ">인원</h2>
+
+                    <div class="ui-field-contain">
+                        <label for="tday">이름</label></th>
+                        <input type="text" id="tday" placeholder="날짜입력">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="headcount">인원수</label></th>
+                        <input type="number" id="headcount" placeholder="인원수 입력">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" name="name" placeholder="이름 입력, 여러명 일경우 콤마로 구분">
+                    </div>       
+                        
+                    <h2 class="custom-title">상품</h2>
+
+                    <div class="ui-field-contain">
+                        <label for="item">이름</label></th>
+                        <input type="text" id="item" placeholder="상품 입력">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="fare">비용</label></th>
+                        <input type="number" id="fare" placeholder="비용 입력">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="description">내용</label>
+                        <textarea id="description" name="description" rows="8" cols="40"  placeholder="내용 입력"></textarea>
+                    </div> 
+                    <button onclick="addPerson()" style="background-color:#baefba">추가하기</button>
+                   
+
+                    <h2 class="custom-title">정산내용</h2>
+                    <table data-role="table" id="table_detail" data-mode="reflow" class="ui-responsive table-stroke">
+                        <thead>
+                            <tr>
+                                <th data-priority="">물품명(Item name)</th>                
+                                <th>이름(Name)</th>
+                                <th>인원수(headcount)</th>                
+                                <th>요금(Fare)</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="participantList">
+                        </tbody>
+                    </table>
+
+                
+                    <div  id="item_list"></div>
+
+                    <div class="button-container">
+                        <button onclick="calculateSplit()" style="background-color:#b0b0ff">정산하기</button>
+                    </div>
+
+
+                    <h2 id="h2_result" class="custom-title">결과</h2>
+                    <div id="result" class="" style="min-height:30px"></div>
+                    
+                    <div class="button-container">
+                        <button onclick="savePerson()" style="">저장하기</button>
+                    </div>
+                </div>
+
+                <div id="tab2" class="tab-content jqm-content">
+                    <button onclick="history_clear()">초기화</button>
+                        
+
+                    <!-- <input type="file" id="dbFile" accept=".db, .sqlite, .sqlite3" value="static\js\db\dbs.db"> -->
+                   
+                    <h2 id="history_title" class="custom-title">목록</h2>
+                    <div id="filename"></div>
+
+                    <table data-role="table" data-mode="reflow" class="individual_table ui-responsive table-stroke">
+                        <thead>
+                            <tr>
+                                <th class="th-label">총 금액</th>
+                                <th class="th-label">정산</th>
+                                <th class="th-label">미정산</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="total th-label"></th>
+                                <th class="settled th-label"></th>
+                                <th class="unsettled th-label"></th>
+                            </tr>    
+                        </tbody>
+                    </table> 
+                    <table data-role="table" data-mode="reflow" class="individual_table ui-responsive table-stroke">
+                        <thead>
+                            <tr>
+                                <th class="th-label">이름</th>
+                                <th class="th-label">정산</th>
+                                <th class="th-label">미정산</th>
+                            </tr> 
+                        </thead>
+                        <tbody>                       
+                            <tr class="individual" style="display:none">
+                                <td class="in_total text-center border-right"></td>
+                                <td class="in_settled text-right border-right"></td>
+                                <td class="in_unsettled text-right border-right"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="history" class=""></div>
+                </div>
+            </div>
+        </div>
+    
+        <div  id="footer-container">
+            <div  data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" id="chat" data-icon="custom" data-theme="b">Chat</a></li>
+                        <li><a href="#" id="email" data-icon="custom" data-theme="b">Email</a></li>
+                    </ul>
+                </div>
+                <h4>Page Footer</h4>
+            </div>
+        </div>
+    </div>
+</body>
+    <!-- <button onclick="loadPerson()">불러오기</button>  -->
+    
+
+    <script>
+       
+        storeName = "myStore"; // 객체 저장소 이      
+
+        $(document).ready(function () {
+            // console.log("정산프로그램 시작");
+           
+            
+
+            const storedPassword = localStorage.getItem('userPassword');
+            const pass ="99690"
+            // 패스워드를 설정하는 버튼
+            let passok = true
+            
+            if (pass != storedPassword) {
+                const newPassword = prompt(' 패스워드를 입력해주세요.');
+                if(pass == newPassword){
+                    localStorage.setItem('userPassword', "99690"); // 로컬 스토리지에 저장  
+                }else{
+                    passok =  false
+                }
+                
+            }
+
+            if(!passok){
+                $("body").html("")
+            }
+
+            let db; // SQLite DB 객체
+            let fileHandle; 
+            let isNewDatabase = false; // 새로운 DB 생성 여부
+                 
+            const file = ""
+            // initDatabase()
+
+            openDB = () => {
+                return new Promise((resolve, reject) => {
+                    // alert(`dbName : ${dbName} , storeName : ${storeName} , dbVersion  : ${dbVersion} `)
+                    const request = indexedDB.open(dbName, dbVersion);
+
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        // 객체 저장소 생성 (이미 존재하지 않으면)
+                        if (!db.objectStoreNames.contains(storeName)) {
+                            db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
+                        }
+                    };
+
+                    request.onsuccess = (event) => {
+                        resolve(event.target.result); // 데이터베이스 연결 성공
+                    };
+
+                    request.onerror = (event) => {
+                        reject("Error opening DB: " + event.target.errorCode);
+                    };
+                });
+            };
+            
+            history_load()
+
+            $('.tabs li').on('click', function () {
+                const tabId = $(this).data('tab');
+
+                // 모든 탭에서 active 클래스 제거
+                $('.tabs li').removeClass('active');
+                $('.tab-content').removeClass('active');
+
+                // 클릭한 탭에 active 클래스 추가
+                $(this).addClass('active');
+                $('#' + tabId).addClass('active');
+            });
+
+            let dt = new Date().toLocaleString()
+            document.getElementById("tday").value = dt;
+        });
+
+        
+        // SQL.js 로드
+        async function loadSQL() {
+            const SQL = await initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}` });
+            return SQL;
+        }
+
+        // DB 파일 업로드 처리
+        // document.getElementById('dbFile').addEventListener('change',  function(e) {
+        $('#dbFile').change(function (e) {
+            const file = e.target.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async function(event) {
+                    const buffer = event.target.result;
+                    const SQL = await loadSQL();
+                    
+                    // DB 로드
+                    db = new SQL.Database(new Uint8Array(buffer));
+                    isNewDatabase = false;
+
+                    // 데이터 보기
+                    displayData();
+                    
+                    $("#filename").text(e.target.value)
+                    $('#dbFile').val(''); // 파일 입력 초기화ㄹㅇㅇㅇ
+                };
+                reader.readAsArrayBuffer(file);
+            } else {
+                alert('SQLite 파일을 선택해주세요.');
+            }
+            
+        });
+
+        async function initDatabase(){
+            // SQL.js 모듈 초기화
+            const SQL =  await initSqlJs({
+                locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+                // locateFile: file => `static/js/db/modified_database.db`
+            });
+
+            // SQLite 데이터베이스 초기화
+            db = new SQL.Database();
+
+            // 테이블 생성 내용:contents, 날짜 date, description 설명, 결재여부 approval
+            db.run(`
+                CREATE TABLE IF NOT EXISTS settlement (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    contents text,
+                    date text,
+                    description text,
+                    approval text
+                );
+            `);
+
+           
+            // 데이터 삽입
+            // const insertQuery = "INSERT INTO users (name, age) VALUES (?, ?)";
+            // db.run(insertQuery, [name, age]);
+
+            const selectQuery = "SELECT * FROM settlement";
+            const result = db.exec(selectQuery);
+            // console.log('result' , result)
+            $("#item_list").html(result)
+
+        }
+
+        async function savePerson() {
+            let result = confirm("저장 하시겠습니까?");
+            if (result) { 
+                const date = new Date().toISOString(); // 현재 날짜와 시간 (ISO 8601 형식)
+                //저장하기 전에 삭제 버튼 제거
+                $("#result").find(".deleteBtn").remove()
+                let contents = document.getElementById("result").innerHTML
+                const tday = document.getElementById("tday").value || date
+                const description = document.getElementById("description").value
+                /*
+                const insertQuery = "INSERT INTO settlement (contents, date ,description , approval) VALUES (?, ?,?,?)";
+                db.run(insertQuery, [contents, tday,description ,'N' ]);
+                const selectQuery = "SELECT * FROM settlement";
+                const result = db.exec(selectQuery);
+                // console.log('result' , result)
+                
+                $("#item_list").html(result)
+
+                
+                if (!db) {
+                    alert('DB를 먼저 로드하세요.');
+                    return;
+                }
+
+                // DB를 Blob으로 변환
+                const binaryArray = db.export();
+                const blob = new Blob([binaryArray], { type: 'application/x-sqlite3' });
+
+                
+                //파일DB저장
+                try {
+                    // DB를 Blob으로 변환
+
+                    // File System Access API 사용하여 파일에 덮어쓰기
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(blob);
+                    await writable.close();
+
+                    alert('DB 파일이 성공적으로 덮어쓰기 되었습니다.');
+                } catch (err) {
+                    // alert('파일 덮어쓰기에 실패했습니다. 브라우저가 이 기능을 지원하지 않는 것일 수 있습니다.');
+                    // Blob을 사용해 파일로 다운로드
+                    // const link = document.createElement('a');
+                    // link.href = URL.createObjectURL(blob);
+                    // link.download = 'dbs.db'; // 파일 이름
+                    // link.click();
+                }
+                    */
+
+                // 인덱스DB 저장
+                openDB().then((db) => {
+                    const transaction = db.transaction([storeName], "readwrite");
+                    const store = transaction.objectStore(storeName);
+                    
+                    const data = {
+                        contents: contents,
+                        date: tday,
+                        description:description,
+                        approval:'N'
+                    };
+
+                    const request = store.add(data);
+
+                    request.onsuccess = () => {
+                        alert("데이터가 저장되었습니다!");
+                    };
+
+                    request.onerror = (event) => {
+                        alert("데이터 저장 실패: " + event.target.error);
+                    };
+                }).catch((error) => {
+                    alert("DB 열기 실패: " + error);
+                });
+                //새로고침
+                location.reload();
+            }
+        }
+
+        function loadPerson() {
+            
+            // const selectQuery = "SELECT * FROM settlement";
+            // const result = db.exec(selectQuery);
+            // console.log('result' , result)
+            // $("#item_list").html(result)
+
+            const file = document.getElementById("dbFile")[0];
+            // 
+            //  const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = async function(event) {
+                const buffer = event.target.result;
+                const SQL = await loadSQL();
+                
+                // DB 로드
+                db = new SQL.Database(new Uint8Array(buffer));
+                fileHandle = await file.webkitGetAsEntry(); // 파일 핸들 가져오기 (브라우저에서만 지원)
+
+                isNewDatabase = false;
+
+                // 데이터 보기
+                 displayData();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // 데이터 보기
+        function displayData() {
+            if (!db) {
+                alert('DB를 먼저 로드하세요.');
+                return;
+            }
+
+            // 예시: users 테이블의 데이터 조회
+            let stmt = db.prepare("SELECT * FROM settlement");
+            let result = [];
+
+            while (stmt.step()) {
+                result.push(stmt.getAsObject());
+            }
+
+            let tab_id = $(".tabs").find(".active").attr("name") 
+            document.getElementById('result').innerHTML = '';
+            // document.getElementById('history').innerHTML = '';
+            
+            result.forEach(element => {
+                $("#"+tab_id).append( `<div>${element.date}</div>
+                                <div>${element.contents}</div>`
+                            )
+                // document.getElementById(tab_id).innerHTML += 
+                // `<ul><li>${element.date}</li><li>${element.contents}</li></ul>` 
+                // `<div>${element.date}</div>
+                // <div>${element.contents}</div>`
+            });
+            // 데이터를 화면에 표시
+        }
+
+        // 정산 배열
+        let participants = [];
+
+        function addPerson() {
+            const item = document.getElementById("item").value;
+            const fare = parseFloat(document.getElementById("fare").value);
+            const headcount = parseFloat(document.getElementById("headcount").value);
+            const name = document.getElementById("name").value;
+            const tday = document.getElementById("tday").value;
+            //추가설명
+            const description = document.getElementById("description").value;
+            
+            if (item && !isNaN(fare) && !isNaN(headcount) )  {
+                participants.push({ item, fare,headcount,name,description});
+                // console.log('participants ' , participants)
+                // 이후
+                renderParticipantList();
+                document.getElementById("item").value = '';
+                document.getElementById("fare").value = '';
+            } else {
+                alert("물품명, 비용, 인원수, 이름을 올바르게 입력하세요.");
+            }
+        }
+
+        
+        function cacl_clear(){
+            let result = confirm("초기화 하시겠습니까?");
+            if (result) {    
+                $('#item').val('');
+                $('#fare').val('');
+                $('#headcount').val('');
+                $('#name').val('');
+                $('#participantList').html('');     
+                participants = []
+                
+                let dt = new Date().toLocaleString()
+                document.getElementById("tday").value = dt;
+                // document.getElementById("item").value = ''
+                // document.getElementById("fare").value = ''
+                // document.getElementById("headcount").value = ''
+                // document.getElementById("name").value = ''
+                // document.getElementById("participantList").innerHTML = ''
+            }
+        }
+
+        function history_clear(){
+            
+            document.getElementById('history').innerHTML = '';
+            // document.getElementById('history').innerText = '';
+            // document.getElementById('contents').innerText = '';
+            // document.getElementById('filename').innerText = '';
+            // document.getElementById('dbFile').value = '';
+            $("#history").html("")
+            // $("#filename").text("")
+            // $('#dbFile').val(''); // 파일 입력 초기화
+        }
+
+        function renderParticipantList() {
+            
+            const participantList = document.getElementById("participantList");
+            participantList.innerHTML = participants.map(
+                person => {
+                    const split_name = person.name.split(","); // 콤마(,)를 기준으로 문자열을 나눔
+                    // console.log('split_name' ,split_name)
+                    return `<tr><td>${person.item}</td>
+                        <td>${person.name}</td>                        
+                        <td>${person.headcount}</td>
+                        <td>${person.fare.toFixed(2)}</td>
+                        </tr>`
+                } ).join('');
+        }
+
+        // / 새로운 DB 생성 사용하지 않음
+        async function createNewDatabase() {
+            const SQL = await loadSQL();
+            db = new SQL.Database();
+
+            // 예시: 새로운 테이블 생성
+            db.run("CREATE TABLE settlement (id INTEGER PRIMARY KEY, contents text,  date text,description text,approval text);");
+            db.run("INSERT INTO settlement (contents ,date description,approval ) VALUES ('내용','2025-01-25','설명','결재여부부');");
+
+            isNewDatabase = true;
+            displayData();
+        }
+
+        function fndelete(sn){
+            $(".sn_"+sn).remove()
+        }
+
+        
+        function fndeleteDb(sn){
+            let result = confirm("정말로 삭제하시겠습니까?");
+            if (result) {              
+            
+            $(".dbdelete_"+sn).remove()
+
+                //인덱스DB 저장
+                openDB().then((db) => {
+                    const transaction = db.transaction([storeName], "readwrite");
+                    const store = transaction.objectStore(storeName);
+                    store.delete(sn);
+                    alert("삭제되었습니다!");
+                })
+
+                history_load()
+            
+            } 
+        }
+
+        function fnapproval (sn){
+            let result = confirm("정산완료 하시겠습니까?");
+            if (result) {              
+            
+                openDB().then((db) => {
+                    let transaction = db.transaction([storeName], "readwrite");
+                    let store = transaction.objectStore(storeName);
+                    // console.log('store ' ,store)
+
+                    let request = store.get(sn); // ID 1번 데이터 가져오기
+
+                    request.onsuccess = function(event) {
+                        let data = event.target.result;
+                        if (data) {
+                            data.approval = "Y"; // 나이만 변경
+                            store.put(data); // 수정된 데이터 저장
+                        } 
+                    };                    
+                })
+
+                //새로고침
+                //location.reload();
+                history_clear();
+                
+                history_load()
+
+                alert("상태가 변경되었습니다!");
+            }
+        }
+
+        function calculateSplit() {
+            // 매개변수
+            // callback (필수): 배열의 각 요소에 대해 호출되는 함수.
+
+            // 콜백 함수는 다음 4가지 인자를 받습니다:
+            // accumulator: 이전 콜백 함수의 반환값을 저장 (초기값에서 시작).
+            // currentValue: 현재 처리 중인 배열 요소.
+            // currentIndex (선택): 현재 요소의 인덱스.
+            // array (선택): reduce가 호출된 배열 자체.
+            // initialValue (선택): accumulator의 초기값을 지정. 생략하면 배열의 첫 번째 요소가 초기값으로 사용됩니다.
+
+            let description = document.getElementById("description").value;
+
+            //총금액액
+            const totalExpense = participants.reduce((sum, curr) => sum + curr.fare, 0);
+            // 인원수
+            var headcount = 0;
+
+            //별도게산
+            const resultText = participants.map(person => {
+                // 인당 금액
+                const difference = person.fare / person.headcount ;
+                headcount = person.headcount ;
+                tbody = `
+                <tbody>
+                    <tr class="item_list">
+                        <td class="border-right">${person.item} </td>
+                        <td class="name border-right text-center">${person.name}</td>
+                        <td class="total_amount border-right text-right">${person.fare.toFixed(2)}원</td>
+                        <td class="individual_amount border-right text-right">${difference}원</td>
+                    </tr>
+                </tbody>
+                `
+                return tbody;
+            }).join('<br>');
+
+            let html=`
+                <table data-role="table" data-mode="reflow" class="ui-responsive table-stroke ui-table ui-table-reflow">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #ddd;;text-align:center">상품명</th>
+                            <th style="background-color: #ddd;;text-align:center">이름</th>
+                            <th style="background-color: #ddd;;text-align:center">총액</th>
+                            <th style="background-color: #ddd;;text-align:center">개별</th>
+                        </tr>  
+                    </thead>
+                `
+            html+=resultText
+            html+=`<tr>
+                    <th colspan="4" style="background-color: #ddd;text-align:center">비고</th>
+                    </tr>`
+            html+=`<tr>
+                    <td colspan="4">${description}</td>
+                    </tr>`
+            html+=`</table>`
+            const splitAmount = totalExpense / headcount;
+            // 인당 지불 금액
+            // console.log('splitAmount ',  splitAmount)
+            let sn = $(".calc_list").length +1
+            let key = "";
+            if(crypto && typeof crypto.randomUUID != 'undefined'){
+                key = crypto.randomUUID(); // 최신 브라우저에서 지원
+            }else{
+                key = generateUUID();
+            }
+           
+            let dt = new Date().toLocaleString()
+            let tday = document.getElementById("tday").value||dt;
+            document.getElementById("result").innerHTML += `
+                <div class="sn_${key}" class="ui-body ui-body-a ui-corner-all">
+                    <div class="ui-bar ui-bar-a">
+                        <div class="ui-field-contain">
+                            <label for="sn">순번</label>
+                            ${sn}
+                        </div>                     
+                        <div class="ui-field-contain">
+                            <label for="dt">날짜</label>
+                            ${tday}
+                        </div>
+                    </div>
+                    <div class="ui-body jqm-content " style="border:1px solid #ddd"><p>
+                        <button onclick="fndelete('${key}')" class="deleteBtn  ui-btn ui-shadow ui-corner-all" style="background-color:#ff758c" >
+                            <i class="fas fa-trash"></i> 삭제
+                        </button>
+                        <h2 class="custom-title">총액</h2>
+                        <table data-role="table" data-mode="reflow" class="calc_list ui-responsive table-stroke ui-table ui-table-reflow">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #ddd;text-align:center;">총액</th>
+                                    <th style="background-color: #ddd;text-align:center;">개별</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align:center;" class="border-right">${totalExpense.toFixed(2)}원</td>
+                                    <td style="text-align:center;" class="border-right">${splitAmount.toFixed(2)}원</td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>    
+
+                        <div class="line-40"></div>
+
+                        <h2 class="custom-title">개별</h2>
+                        ${html}
+                    </div>
+                </div>           
+            `;
+            document.getElementById("participantList").innerHTML ='' 
+            participants = []
+        }
+
+        function history_load(){
+            openDB().then((db) => {
+                const transaction = db.transaction([storeName], "readonly");
+                const store = transaction.objectStore(storeName);
+
+                const request = store.getAll(); // 저장된 모든 데이터 가져오기
+
+                var settled_value = {};
+                $(".individual:not(:first)").remove();
+                request.onsuccess = (event) => {
+                    const data = event.target.result;
+                    // console.log()
+                    if (data.length > 0) {
+                        let outputHtml = "";
+                        data.forEach((item,index) => {
+                            // console.log('item',item)
+                            // console.log('index',index)
+
+                            let approval = item.approval || 'N' 
+                            outputHtml += `
+                                <div class="dbdelete_${item.id}" style="border: 1px solid; margin-top:30px">
+                                   `
+                            if(approval == 'N'){
+                                outputHtml += `
+                                <div style="align-items: center;justify-content: space-between; padding: 10px; ">
+                                    <label class="approval_text custom-h2" style="color:red;font-size:16px;font-weight:bold">● 미정산</label>
+                                    <div class="ui-input-btn ui-btn ui-btn-inline">
+                                        정산하기                                     
+                                        <input type="button"  onclick="fnapproval(${item.id})" value="정산하기" style="background-color:#3788d8">       
+                                                                    
+                                    </div>
+                                    <div class="ui-input-btn ui-btn ui-btn-inline">
+                                        삭제
+                                        <input type="button"  onclick="fndeleteDb(${item.id})"   value="삭제" style="background-color:#ff758c"> 
+                                    </div>
+                                </div>                                
+                              `
+                            }else{
+                                outputHtml += `<div style="padding: 10px; "><label class="approval_text" style="color:green;font-weight:bold;font-size:16px">● 정산완료</label></div>
+                                `
+                            }
+                                  
+                            outputHtml += `
+                                   
+                                    ${item.contents}  
+                                </div>            
+                            `;
+                        });
+                                              
+                        $("#history").html(outputHtml)
+
+                        let total = 0 
+                        let settled = 0 
+                        let unsettled = 0 
+                        $("#history").find("[class*='dbdelete']").each(function(index, item){
+                            // console.log('item ' , item )
+                            total += parseFloat($(item).find("tr:eq(1) td:eq(0)").text())
+                            let approval_text = $(this).find(".approval_text").text() || ""
+                            
+                            if(approval_text == "● 미정산"){
+                                unsettled += parseFloat($(item).find("tr:eq(1) td:eq(0)").text())
+                            }else if(approval_text == "● 정산완료"){
+                                settled += parseFloat($(item).find("tr:eq(1) td:eq(0)").text())
+                            }
+                            
+                            $(this).find("table .item_list").each(function(){
+                                let name = $(this).find(".name").text() || ""
+                                let split_name = name.split(" ") ;
+
+                                
+                                let total_amount =  $(this).find(".total_amount").text() || 0
+                                let individual_amount = $(this).find(".individual_amount").text() || 0
+                                individual_amount = individual_amount.replace("원","")
+                                individual_amount = individual_amount.match(/\d+/g);  // 숫자만 찾기  individual_amount
+                                        
+                                
+                                split_name.forEach(item => {
+                                    // console.log('item ' , item)
+                                    if(item){
+                                        if(!settled_value[item]){
+                                            settled_value[item] = {"unsettled" : 0 , "settled" : 0 }
+                                        }
+
+                                        if(approval_text == "● 미정산"){
+                                            settled_value[item]["unsettled"]  = parseFloat(settled_value[item]["unsettled"]) + (parseFloat(individual_amount)||0)
+                                        }else{                                            
+                                            settled_value[item]["settled"]  = parseFloat(settled_value[item]["settled"]) + (parseFloat(individual_amount)||0)
+                                        }
+                                    }
+                                   
+                                });
+                               
+                            })
+                        })
+                        // console.log('total ' , total)
+                        // settled
+                        // unsettled
+                        $(".total").text(total ? total.toLocaleString() : 0)
+                        $(".settled").text(settled ? settled.toLocaleString(): 0)
+                        $(".unsettled").text(unsettled ?  unsettled.toLocaleString(): 0)
+
+                        for( var key in settled_value ){
+                            let tr = $(".individual:first").clone()
+                            $(tr).find(".in_total").text(key) 
+                            $(tr).find(".in_settled").text(settled_value[key]["settled"] ? settled_value[key]["settled"].toLocaleString():0) 
+                            $(tr).find(".in_unsettled").text(settled_value[key]["unsettled"] ? settled_value[key]["unsettled"].toLocaleString():0) 
+                            $(".individual_table").append(tr)
+                            $(tr).show()
+                        }
+                            
+                    } else {
+                        $('#output').html("저장된 데이터가 없습니다.");
+                    }
+                };
+
+                request.onerror = (event) => {
+                    alert("데이터 불러오기 실패: " + event.target.error);
+                };                
+            });
+
+        }
+
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0; // 0-15 사이의 랜덤 값
+                const v = (c === 'x' ? r : (r & 0x3 | 0x8)); // v는 8-11, 12-15 사이의 값
+                return v.toString(16);  // 16진수로 변환
+            });
+        }
+
+        //createNewDatabase();
+    </script>
+</body>
+</html>

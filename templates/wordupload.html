@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 로컬에 저장된 jQuery 파일 가져오기 -->
+    <script src="static/js/jquery/jquery-3.7.1.min.js"></script>  
+    <script src="static/js/jquery/common.js"></script>
+    <!-- <script src="{{ url_for('static', filename='js/jquery/jquery-3.7.1.min.js') }}"></script> -->
+ 
+    <title>PDF Translator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <style>
+        #pdf-render {
+            border: 1px solid black;
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>PDF Translator</h1>
+    <input type="file" id="upload-pdf" />
+    <button id="translate-pdf">Translate PDF</button>
+    <canvas id="pdf-render"></canvas>
+    <p id="output" style="white-space: pre-wrap;"></p>
+
+    <script>
+        const uploadInput = document.getElementById('upload-pdf');
+        const translateButton = document.getElementById('translate-pdf');
+        const pdfCanvas = document.getElementById('pdf-render');
+        const output = document.getElementById('output');
+        const ctx = pdfCanvas.getContext('2d');
+        let pdfData = null;
+        const url = "http://localhost:5000"
+
+        uploadInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch("/upload", {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.json();
+            pdfData = result.text;
+            alert('PDF uploaded. Click Translate to start.');
+        });
+
+        translateButton.addEventListener('click', async () => {
+            if (!pdfData) {
+                alert('No PDF uploaded!');
+                return;
+            }
+
+            const response = await fetch('/pdf_translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: pdfData }),
+            });
+            const result = await response.json();
+            output.textContent = pdfData;
+            output.textContent += "\n\n"
+            output.textContent += result.translated_text;
+        });
+
+        pdfCanvas.addEventListener('click', async (event) => {
+            const selectedText = window.getSelection().toString();
+            if (!selectedText) {
+                alert('No word selected!');
+                return;
+            }
+
+            const response = await fetch('/translate-word', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ word: selectedText }),
+            });
+            const result = await response.json();
+            alert(`Translation: ${result.translated_word}`);
+        });
+    </script>
+</body>
+</html>

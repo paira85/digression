@@ -79,8 +79,8 @@ def translate_page():
 
 if __name__ == '__main__':
     #app.run(host="127.0.0.1", debug=True,port=5001)
-    app.run(host="0.0.0.0", port=5000, debug=True)  # 127.0.0.1 대신 0.0.0.0 사용!
-    # app.run(host="192.168.45.218", port=5000, debug=True)  # 127.0.0.1 대신 0.0.0.0 사용!
+    # app.run(host="0.0.0.0", port=5000, debug=True)  # 127.0.0.1 대신 0.0.0.0 사용!
+    app.run(host="192.168.45.218", port=5000, debug=True)  # 127.0.0.1 대신 0.0.0.0 사용!
 
 
 # 그는 골칫덩어리야

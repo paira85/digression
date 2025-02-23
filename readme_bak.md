@@ -44,8 +44,12 @@ paira85@naver.com
 tlqkftorl1!@
 KEY=71674198ba027a4043f50594b64592dd
 
-https://momotranslate.com/
 
+https://dashboard.render.com/
 https://dashboard.render.com/web/srv-cuteejlds78s738v4uk0/deploys/dep-cuteekdds78s738v4v10
 
 https://momotranslate.com/
+
+
+https://railway.com/
+momo.tramslate.com
