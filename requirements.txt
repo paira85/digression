@@ -138,8 +138,8 @@ toml==0.10.2
 # torch==2.5.1
 # torchaudio==2.4.0
 # torchvision==0.20.1
-pytorch==1.8.1 
-torchvision==0.9.1 
+pytorch==1.8.1
+torchvision==0.9.1
 torchaudio==0.8.1
 tornado==6.4.2
 tqdm==4.67.1
